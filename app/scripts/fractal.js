@@ -11,7 +11,7 @@
     this.maxMountainWidth = 200;
     this.minMountainHeight = 25;
     this.maxMountainHeight = 47;
-    this.hConstant = [0.1, 0.2, 0.3, 0.4, 0.5];  // 0.1 (smooth), 1.0 (jagged)
+    this.hConstant = [0.1, 0.2, 0.3, 0.4];  // 0.1 (smooth), 1.0 (jagged)
     this.variationUpper = 12;                    // upper limit for y variation
     this.variationLower = -12;                   // lower limit for y variation
     this.startPositionSegments = 30;
@@ -91,12 +91,11 @@
       ];
       var variationLower = this.variationLower;
       var variationUpper = this.variationUpper;
-      var hConstant;
+      // pick a random h constant from those available
+      var hConstant = this.hConstant[this.randomInRange(0, this.hConstant.length - 1)];
 
       for (var i = 0; i < this.iterations; i++) {
         points = this.addMidPoints(points, variationUpper, variationLower);
-        // pick a random h constant from those available
-        hConstant = this.hConstant[this.randomInRange(0, this.hConstant.length - 1)]
         // change variation on each iteration
         variationUpper = variationUpper * hConstant;
         variationLower = variationLower * hConstant;
