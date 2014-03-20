@@ -12,7 +12,7 @@ svg {
   position: absolute;
 }
 polygon {
-  opacity: 0.05;
+  opacity: 0.1;
 }
 polygon:hover
 {

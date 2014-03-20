@@ -3,6 +3,8 @@
 
 2D fractal mountain range output with SVG.
 
+.. image:: mountain-range.png
+
 To run as is:
 -------------
 * Clone repository
