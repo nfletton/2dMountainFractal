@@ -1,0 +1,21 @@
+body {
+    background: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+#banner {
+  height: 52px;
+  position: relative;
+}
+svg {
+  position: absolute;
+}
+polygon {
+  opacity: 0.05;
+}
+polygon:hover
+{
+  opacity: 0.1;
+}
+

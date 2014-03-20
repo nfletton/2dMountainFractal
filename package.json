@@ -1,0 +1,17 @@
+{
+  "name": "mountainfractal",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-bower-install": "~0.7.0",
+    "grunt-contrib-connect": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.2",
+    "grunt-mocha": "~0.4.0",
+    "load-grunt-tasks": "~0.2.0",
+    "time-grunt": "~0.2.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+npm update}
