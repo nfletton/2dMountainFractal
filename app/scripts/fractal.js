@@ -11,7 +11,7 @@
     this.maxMountainWidth = 200;
     this.minMountainHeight = 25;
     this.maxMountainHeight = 47;
-    this.hConstant = 0.2;             // 0.1 (smooth), 1.0 (jagged)
+    this.hConstant = 0.2;              // 0.1 (smooth), 1.0 (jagged)
     this.variationUpper = 12;          // upper limit for y variation
     this.variationLower = -12;         // lower limit for y variation
     this.startPositionSegments = 30;
@@ -153,11 +153,13 @@
 
 
   var fractal = new MountainFractal();
+
   window.addEventListener('resize', function () {
     waitForFinalEvent(function () {
       refreshMountains();
     }, 500, "resize complete");
   });
+
   refreshMountains();
 
 })(this);
