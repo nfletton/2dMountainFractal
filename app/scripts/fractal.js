@@ -11,9 +11,9 @@
     this.maxMountainWidth = 200;
     this.minMountainHeight = 25;
     this.maxMountainHeight = 47;
-    this.hConstant = 0.2;             // 0.1 (jagged), 1.0 (smooth)
-    this.variationUpper = 10;          // upper limit for y variation
-    this.variationLower = -10;         // lower limit for y variation
+    this.hConstant = 0.2;             // 0.1 (smooth), 1.0 (jagged)
+    this.variationUpper = 12;          // upper limit for y variation
+    this.variationLower = -12;         // lower limit for y variation
     this.startPositionSegments = 30;
 
     return this;
@@ -22,40 +22,11 @@
   exports.MountainFractal = MountainFractal;
 
   MountainFractal.prototype = {
-    setRangeWidth: function (width) {
-      this.rangeWidth = width;
 
-      if (width < 350) {
-          this.mountainCount = 0;
-          this.startPositionSegments = 3;
-      } else if (width < 450) {
-          this.mountainCount = 4;
-          this.startPositionSegments = 4;
-      } else if (width < 550) {
-          this.mountainCount = 5;
-          this.startPositionSegments = 5;
-      } else if (width < 650) {
-          this.mountainCount = 6;
-          this.startPositionSegments = 6;
-      } else if (width < 750) {
-          this.mountainCount = 7;
-          this.startPositionSegments = 7;
-      } else if (width < 850) {
-          this.mountainCount = 8;
-          this.startPositionSegments = 8;
-      } else if (width < 950) {
-          this.mountainCount = 11;
-          this.startPositionSegments = 9;
-      } else if (width < 1050) {
-          this.mountainCount = 14;
-          this.startPositionSegments = 7;
-      } else if (width < 1250) {
-          this.mountainCount = 18;
-          this.startPositionSegments = 9;
-      } else {
-          this.mountainCount = 22;
-          this.startPositionSegments = 11;
-      }
+    setRangeParameters: function (width) {
+      this.rangeWidth = width;
+      this.mountainCount = Math.round(width / 60);
+      this.startPositionSegments = Math.round(this.mountainCount / 2);
     },
 
     randomInRange: function (lower, upper) {
@@ -135,7 +106,7 @@
       for (var i = 0; i < this.mountainCount; i++) {
         var height = this.randomInRange(this.minMountainHeight, this.maxMountainHeight);
         var width = this.randomInRange(this.minMountainWidth, this.maxMountainWidth);
-        var start = this.randomStartPosition(i, this.startPositionSegments, this.rangeWidth + 100);
+        var start = this.randomStartPosition(i, this.startPositionSegments, this.rangeWidth + 300);
 
         mountains[i] = this.generateMountain(start, width, height);
       }
@@ -150,7 +121,7 @@
         uniqueId = "Don't call this twice without a uniqueId";
       }
       if (timers[uniqueId]) {
-        clearTimeout (timers[uniqueId]);
+        clearTimeout(timers[uniqueId]);
       }
       timers[uniqueId] = setTimeout(callback, ms);
     };
@@ -165,7 +136,6 @@
     for (var mountain = 0; mountain < length; mountain++) {
       var polygon = document.createElementNS(svgNS, "polygon");
       polygon.setAttributeNS(null, 'points', mountains[mountain].join(' '));
-      polygon.setAttributeNS(null, 'style', 'fill: #000');
       polygons.appendChild(polygon);
     }
 
@@ -177,14 +147,14 @@
   };
 
   var refreshMountains = function () {
-    fractal.setRangeWidth(document.getElementById('banner').clientWidth);
+    fractal.setRangeParameters(document.getElementById('banner').clientWidth);
     displayMountains(fractal.generateMountainRange());
   };
 
 
   var fractal = new MountainFractal();
   window.addEventListener('resize', function () {
-    waitForFinalEvent(function(){
+    waitForFinalEvent(function () {
       refreshMountains();
     }, 500, "resize complete");
   });
